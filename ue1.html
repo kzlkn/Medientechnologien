@@ -1,0 +1,150 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="format.css">
+<style type="text/css">
+        <!--
+                 a:link {font-family:Arial;        font-size:10pt;        text-decoration:none;}
+                a:visited {font-family:Arial; font-size:10pt; text-decoration:none;}
+                a:hover {color:#FF3333; text-decoration:none; font-weight:normal; font-size:10pt;}
+        //-->
+</style>
+</head>
+
+<body>
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+         <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+         folgenden.</p>
+</iframe>
+
+<h2>Uebung 1</h2>
+<br><h3>Aufgabe 1.a.</h3>
+
+<br><p>Musikaufnahme</p>
+<audio controls><source src="./audio/musik_UG5.wav" type="audio/wav"></audio>
+<audio controls><source src="./audio/sprache_05praat.wav" type="audio/wav"></audio>
+
+<br><h3>Aufgabe  1.b.</h3>
+<p>Die Abtastfrenquenz ist für die beiden Dateien unterschiedlich, weil bei Musik eine höhere Abtastfrequenz angemessen ist, um die feineren Details darzustellen, und man bei Sprache mit einer niedrigeren auskommt</p>
+
+<br><h3>Aufgabe 1.c.</h3>
+<p>Ausgabe von waveIO für die beiden dateien</p>
+<p>The File: Musik_&Uuml;G5.wav</p>
+<p>IO State: READING</p>
+<br>
+<p>Headerausgabe</p>
+<p>Channels: 2</p>
+<p>Frames: 215683</p>
+<p>Sample Rate: 44100<p>
+<p>Valid Bits: 16</p>
+<p>Bytes per sample: 2</p>
+<br>
+<p>The File: sprache_05praat.wav</p>
+<p>IO State: READING</p>
+<br>
+<p>Headerausgabe</p>
+<p>Channels: 2</p>
+<p>Frames: 235949</p>
+<p>Sample Rate: 16000</p>
+<p>Valid Bits: 16</p>
+<p>Bytes per sample: 2</p>
+
+<p>Erklärung: die Channels stehen für die Audiokanäle, also mono(1) oder stereo (2)</p>
+<p>Frames gibt die anzahl an frames in der Datei an, Sample Rate ist die Abtastfrequenz, valid bits gibt die Aufl&Ouml;sung an</p>
+<p>zu guter letzt steht Bytes per Sample für die Anzahl der Abtastwerte der Amplitude </p>
+
+<br><h3>Aufgabe 1.d.</h3>
+<p>Bitrate = Kan&auml;le x Samplerate x Aufl&ouml;sung</p>
+<p>Bitrate(Musik) = 2 x 44100 x 16  =  1411200 bits/s</p>
+<p>Bitrate(Sprache) = 2 x 16000 x 16  =  256000 bits/s</p>
+
+
+<br><h3>Aufgabe 2.a.</h3>
+<p>Code:</p>
+<p>FileOutputStream fos = new FileOutputStream("out.txt");</p>
+<p>OutputStreamWriter osw = new OutputStreamWriter(fos, "US-ascii");</p>
+<p>BufferedWriter bw = new BufferedWriter(osw);</p>
+<p>for (int i=0; i &#060; samples;i++) { </p>
+<p>bw.write(String.valueOf(readWavFile.sound[i]));</p>
+<p>bw.newLine();</p>
+<p>}</p>
+<p>bw.close();</p>
+<p>osw.close();</p>
+<p>fos.close();</p>
+
+<p>für sin_lo031 haben wir wiederholened 9102, 16069, 3196, -13623, -13623, 3196. 16069, 9102, die gleiche folge aber negativ und danach wieder con vorne</p>
+<p> insgesamt sind es 16000 Einträge, also auch soviele Samples<</p>
+daraus lässt sich eine Wiederholung alle 8 Eintr&auml;ge auslesen, das sind 6 Sample Intervalle. Mit f0 = 1/6 * 16kHz hat das signal eine Frequenz von ca. 2.6kHz</p>
+<p>und für sin_hi031 kommt 15137 -6270 -6270 15137 -15137 6270 6270 -15137 wiederholened </p>
+<p> samplegröße ist die gleiche wie bei dem anderen signal</p>
+<p>daraus lässt sich eine Wiederholung alle 4 Eintr&auml;ge auslesen, das sind 3 Sample Intervalle. Mit f0 = 1/3 * 16kHz hat das signal eine Frequenz von ca 5.3kHz </p>
+
+<br><h3>Aufgabe 2.b.</h3>
+<p>gram bestätigt das wir nahe dran waren, f&uuml;r hi031 waren es 6khz anstatt die 5.3</p>
+<img src="./pics/gramsine_hi031.png">
+<p>und f&uuml;r hi031 waren es 3khz anstatt die 2.6</p>
+<img src="./pics/gramsine_lo031.png" >
+
+<br><h3>Aufgabe 2.c.</h3>
+<img src="./pics/aufgabe2c.png" >
+<p> in diesem bild ist fmax 2khz und fa 4khz</p>
+<br>
+<p>Das abtasttheorem besagt, das eine Funktion, die keine Frequenzen höher als fmax enthält, durch eine beliebige Reihe von Funktionswerten im abstand T &#060; 1/2fmax eindeutig bestimmt ist </p>
+<p>Der Grenzfall des Abtasttheorem gilt bei 2 Abtastungen pro Wellenlänge</p>
+<p>Das bandbegrentze Signal kann vollständig rekonstruiert werden, wenn es mit einer Abtastfrequenz von >= 2*maxFrequenz abgetastet wird.</p>
+
+<br><h3>Aufgabe 2.d.</h3>
+<p>Vor der Abtastung werden die Frequenzen, die zu hoch sind, vom Soundchip herausgefiltert, um sicherzustellen, dass das Abtasttheorem eingehalten wird.</p>
+
+<br><h3>Aufgabe 2.e.</h3>
+<p>for (int i=0; i &#060; samples/2;i++) {</p>
+<p>readWavFile.sound[i] = readWavFile.sound[i*2];</p>
+<p>}</p>
+<p>sampleRate /= 2;</p>
+<p>numFrames /= 2;</p>
+
+<br><h3>Aufgabe 2.f.</h3>
+
+<img src="./pics/sinehoout2f.png">
+<p>Nach dem down-sampling per programm hat sine_hi031.wav eine tiefere Frequenz von 2kHz</p>
+<img src="./pics/sineloout2f.png" >
+<p>sine_lo031.wav behält die Frequenz von 3kHz, da die Samplerate immer noch >= 2*maxFrequenz ist.</p>
+<p> Wenn geeignet Bandbegrenzt wird, werden die zu hohen Frequenzen entfernt und es wird kein Aliasing erzeugt.<p>
+
+<br><h3>Aufgabe 2.g.</h3>
+<p>Der Sprecher ist aufgrund des Down-Samplings und der damit einhergehenden Reduzierung auf maximal 2kHz nur noch in den tiefen Frequenzen zu hören. Dies liegt daran, dass die hohen Frequenzen rausgeschnitten worden.</p>
+
+<br><h3>Aufgabe 3.a.</h3>
+<p>bei 16 bit ist die anzahl -32678(-2 hoch 15) bis 32767(2 hoch 15 -1) und bei 8 bit sind es -128(-2 hoch 7) bis 127(2 hoch 7 -1)</p>
+
+<br><h3>Aufgabe 3.b.</h3>
+<p>int reduced_bits = 512;</p>
+<p>for (int i=0; i &#060;  samples;i++) {</p>
+<p>readWavFile.sound[i] /= reduced_bits;</p>
+<p>readWavFile.sound[i] *= reduced_bits;</p>
+<p>}</p>
+
+<br><h3>Aufgabe 3.c.</h3>
+<p>die Musikdatei erh&auml;lt ein deutliches rauschen ab einer reduktion um 128, also um 10 bits, aber leichte ver&auml;nderungen sind schon ab 256 zu merken</p>
+
+<img src="./pics/musik3c.png">
+<p>(original oben unten, bearbeitete version unten)<p>
+<br>
+<p>Die Sprachdatei ist gerade so noch zu verstehen nach einer reduktion um 4096, also 13 bits, aber es wird langsam schwierig die w&ouml;rter zu entziffern</p>
+<img src="./pics/sprache3c.png">
+<p>(original oben unten, bearbeitete version unten)<p>
+<br>
+
+<br><h3>Aufgabe 3.d.</h3>
+<p>Das Quantisierungsgeräusch zeichnet sich durch ein rauschen mit zunehmender stärke im hintergrund aus</p>
+
+<br><h3>Aufgabe 3.e.</h3>
+<p>Keine Loesung</p>
+
+<br><h3>Aufgabe 3.f.</h3>
+<p>Keine Loesung</p>
+
+
+</body>
+</html>

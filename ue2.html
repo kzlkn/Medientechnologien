@@ -19,30 +19,183 @@
 </iframe>
 
 <h2>Uebung 2</h2>
-<br><h3>Aufgabe 1 - 1.1</h3>
+<br><h3>Aufgabe 1</h3>
 <table><tr>
-<td><img src="./pics/Koala.jpg" alt="Koalabaer auf dem Baum" width="350" height="300"></td>
-<td><img src="./pics/Penguins.jpg" alt="Penguins auf dem Eis" width="350" height="300"></td>
+<td><img src="./pics/Manmade_UG5.bmp" alt="dach" width="960" height="500"></td>
+<td><img src="./pics/Nature_UG5.bmp" alt="pflanzen" width="960" height="500"></td>
 </tr></table>
-<p>Bescheibung</p>
-<p>Loesung</p>
+<p>Header gibt aus:</p>
+<p>Dateigröße 1555254</p>
+<p>Bits pro Pixel 24</p>
+<p>Breite 960</p>
+<p>Höhe 540</p>
+<p>Für sowohl die Bitmap von Manmade als auch Nature</p>
+<br>
+<p>Die Attribute sind die Dateigröße in Bytes, die Bits für jeden Pixel(in dem Fall 24, da für Rot, Gelb Blau jeweils 8 pixel nutzt)</p>
+<p>Breite und Höhe stehen für jeweils die Breite und Höhe des Bildes in Pixeln</p>
+<p>Dateigröße errechnet sich aus Höhe x Breite x (Farbkanäle, also in unserem fall 3, Rot, Gelb und Blau)+ ein wenig extra, für bmp sind das 54 Byte,</p>
+<p>14 für "BITMAPFILEHEADER", und 40 für "BITMAPINFOHEADER", und wenn wir diese 54 zu den 1.555.200 zu rechnen, die wir erhalten, wenn wir unsere Daten</p>
+<p>in die Rechnung eingebn, kommen wir auch auf die 1555254, die uns das Programm zurückgibt</p>
 
-<br><h3>Aufgabe 1 - 1.2</h3>
-<p>Loesung</p>
+<br><h3>Aufgabe 2.1</h3>
+<p>code:
+<p>int ra = bmp.image.getRgbPixel(x,0).r;</p>
+<p>int ga = bmp.image.getRgbPixel(x,0).g;</p>
+<p>int ba = bmp.image.getRgbPixel(x,0).b;</p>
+<p>bh.write(String.valueOf(ra) + " " + String.valueOf(ga) + " " + String.valueOf(ba) + "\n");</p>
 
-<br><h3>Aufgabe 2 - 2.1</h3>
-<img src="./pics/stadt.png" alt="Marsch &uuml;ber die Stra&szlig;e" width="450" height="300">
-<p>Bescheibung</p>
-<p>Loesung</p>
+<p>Ausgabe für grating_H8</p>
+<p>Horizontal:</p>
+<p>173 173 173</p>
+<p>34 34 34</p>
+<p>13 13 13</p>
+<p>136 136 136</p>
+<p>248 248 248</p>
+<p>206 206 206</p>
+<p>64 64 64</p>
+<p>1 1 1</p>
+<p>99 99 99</p>
+<p>232 232 232</p>
+<p>(und danach das gleiche gespiegelt, bevor es sich wiederholt)</p> 
+<p>geschätzte Periodendauer: 10 pixel<p>
+<p>Vertikal:</p>
+<p>173 173 173</p>
+<p>und dann wiederholt es sich unendlich</p>
+<p>existiert keine periode, also keine Periodendauer</p> 
+<br>
+<p>Ausgabe für grating_V2</p>
+<p>Horizontal</p>
+<p>217 217 217</p>
+<p>und dann wiederholt es sich unendlich</p>
+<p>existiert keine periode, also keine periodendauer</p>
+<p>Vertikal:</p>
+<p>die Periode scheint sehr lang zu sein, da sich die werte erst nach ca 80 zeilen spiegeln, hier ist ein Ausschnitt der 7 Zeilen vor und nach diesem Punkt</p>
+<p>242 242 242</p>
+<p>172 172 172</p>
+<p>75 75 75</p>
+<p>9 9 9</p>
+<p>11 11 11</p>
+<p>80 80 80</p>
+<p>176 176 176</p>
+<p>244 244 244</p>
+<p>244 244 244</p>
+<p>176 176 176</p>
+<p>80 80 80</p>
+<p>11 11 11</p>
+<p>9 9 9</p>
+<p>75 75 75</p>
+<p>172 172 172</p>
+<p>242 242 242</p>
+<p>geschätzte Periodendauer: 80 pixel</p>
 
-<br><h3>Aufgabe 2 - 2.2</h3>
-<p>Loesung</p>
 
-<br><h3>Aufgabe 2 - 2.3</h3>
-<p>Loesung</p>
+<br><h3>Aufgabe 2.2</h3>
+<p>Das Abtasttheorem besagt, dass die Abtastfrequenz mindestens doppelt so hoch sein muss wie die höchste Frequenzkomponente: fs ≥ 2 * fmax. </p>
+<p>Der Grenzfall tritt also auf wenn fs = 2 * fmax, wird dies nicht erfüllt könnte Aliaising entstehen.</p>
+<img src="./pics/zeichnung.jpg" alt="dach_grau" >
+<p></p>
 
-<br><h3>Aufgabe 3 - 3.1</h3>
-<p>Loesung</p>
+<br><h3>Aufgabe 2.3</h3>
+<p>code:</p>
+<p>int grau= (int)Math.round(0.3 * bmp.image.getRgbPixel(x,y).r + 0.6 * bmp.image.getRgbPixel(x,y).g + 0.1 * bmp.image.getRgbPixel(x,y).b);</p>
+<p>PixelColor pixel = new PixelColor(grau, grau, grau);</p>
+<p>bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>Ergebnisse:</p>
+<br>
+<table><tr>
+<td><img src="./pics/Manmade_UG5grau.bmp" alt="dach_grau" width="960" height="500"></td>
+<td><img src="./pics/Nature_UG5grau.bmp" alt="pflanzen_grau" width="960" height="500"></td>
+</tr></table>
 
+<br><h3>Aufgabe 2.4</h3>
+<p>Bei einer zu geringen Abtastrate kann Aliasing entstehen. Es können Information verloren gehen, wenn 2 Pixel zu einem werden  </p>
+<p>Ein weiterer Fall, bei dem Aliasing auftreten kann ist, wenn die Bildgröße für den Inhalt zu klein ist, wodurch Fehler im Bild auftreten.</p>
+
+<br><h3>Aufgabe 2.5</h3>
+<p>code für horizontales downsampling:</p>
+<p>if(x %  != 0){</p>
+<p>PixelColor pixel = bmp.image.getRgbPixel(x-1,y);</p>
+<p>bmp.image.setRgbPixel(x,y,pixel);</p>
+<br>
+<p>Ergebnisse sind zu sehen nach horizontalem downsampling mal 3 auf grating H8(auf V2 ergibt es keinen sinn, weil alle pixel in x richting gleich sind):</p>
+<table><tr>
+<td><img src="./pics/Grating_H8.bmp" alt="before" width="960" height="500"></td>
+<td><img src="./pics/Grating_H8_downsample2.bmp" alt="after" width="960" height="500"></td>
+</tr></table>
+
+<p>code für vertikales downsampling:(der gleich Code wie zuvor, nur für y statt x)</p>
+<p>if(x % 3 != 0){</p>
+<p>PixelColor pixel = bmp.image.getRgbPixel(x-1,y);</p>
+<p>bmp.image.setRgbPixel(x,y,pixel);</p>
+<br>
+<p>Ergebnisse sind zu sehen nach vertikalem downsampling mal 3 auf grating V2(auf H8 ergibt es keinen sinn, weil alle pixel in y richting gleich sind):</p>
+<table><tr>
+<td><img src="./pics/Grating_V2.bmp" alt="before" width="960" height="500"></td>
+<td><img src="./pics/Grating_V2_downsample2.bmp" alt="after" width="960" height="500"></td>
+</tr></table>
+<p>Sowohl beim vertikalen dowsampling, als auch beim horizontalen downsampling werden die feinen Striche gröber und dicker. Außerdem werden die verschiedenen Schwarz und Grautöne sichtbarer.</p>
+<br>
+<p>nach 4 mal Horizontalem downsampling erkennt man langsam die Verpixelung des Manmade Bildes an den Farbübergängen</p>
+<table><tr>
+<td><img src="./pics/Manmade_UG5.bmp" alt="before" width="960" height="500"></td>
+<td><img src="./pics/Manmade_UG5_downsample3.bmp" alt="after" width="960" height="500"></td>
+</tr></table>
+<br>
+<p>bei dem Natur-Bild kann man schon die verpixelung nach 3 maligem Horizontalem Downsampling sehen</p>
+<table><tr>
+<td><img src="./pics/Nature_UG5.bmp" alt="before" width="960" height="500"></td>
+<td><img src="./pics/Nature_UG5_downsample2.bmp" alt="after" width="960" height="500"></td>
+</tr></table>
+
+
+<br><h3>Aufgabe 3.1</h3>
+<p>Code:</p>
+<p>int rReduced = bmp.image.getRgbPixel(x,y).r / reduced_bits;</p>
+<p>int gReduced = bmp.image.getRgbPixel(x,y).g / reduced_bits;</p>
+<p>int bReduced = bmp.image.getRgbPixel(x,y).b / reduced_bits;</p>
+<p>PixelColor pixel = new PixelColor(rReduced * reduced_bits,gReduced * reduced_bits,bReduced * reduced_bits);</p>
+<p>bmp.image.setRgbPixel(x,y,pixel);</p>
+
+<br><h3>Aufgabe 3.2</h3>
+<p>Bei dem Naturbild kann man schon bei einer Reduktion von 2 bit erkennen, dass Detail verloren geht, vor allem in den dunklen tönen in der oberen rechten Ecke</p>
+<p>Der Qualitätsverlust des ganzen Bildes wird aber erst bei ca 4 bit sichtbar. Hier Sieht man das langsam die Farbübergänge undeutlich werden</p>
+<table><tr>
+<td><img src="./pics/Nature_UG5.bmp" alt="dach_grau" width="960" height="500"></td>
+<td><img src="./pics/Nature_UG5_reduced4.bmp" alt="pflanzen_grau" width="960" height="500"></td>
+<td><img src="./pics/Nature_UG5_reduced16.bmp" alt="pflanzen_grau" width="960" height="500"></td>
+</tr></table>
+<br>
+<p>Im manmade Bild sind mit genauerem Blick/Zoom bei einer Reduktion von 4 bit Unterschiede erkennbar, und ab 5 auch ohne</p>
+<table><tr>
+<td><img src="./pics/Manmade_UG5.bmp" alt="dach_grau" width="960" height="500"></td>
+<td><img src="./pics/Manmade_UG5_reduced16.bmp" alt="pflanzen_grau" width="960" height="500"></td>
+<td><img src="./pics/Manmade_UG5_reduced32.bmp" alt="pflanzen_grau" width="960" height="500"></td>
+</tr></table>
+
+<br><h3>Aufgabe 3.3</h3>
+<p>Code:</p>
+<p>reduced_bits = 2^4;</p>
+<p>int bitsPerColor = 2^(8-4-1);</p>
+<p>for(int y = 0; y &#060; bmp.image.getHeight(); y++) {</p>
+<p>for (int x = 0; x &#060; bmp.image.getWidth(); x++) {</p>
+<p>				// ********* ToDo ***************</p>
+<p>int rReduced = bmp.image.getRgbPixel(x,y).r / reduced_bits;</p>
+<p>int gReduced = bmp.image.getRgbPixel(x,y).g / reduced_bits;</p>
+<p>int bReduced = bmp.image.getRgbPixel(x,y).b / reduced_bits;</p>
+<p>rReduced = rReduced * bitsPerColor;</p>
+<p>gReduced = gReduced * bitsPerColor;</p>
+<p>bReduced= bReduced * bitsPerColor;</p>
+<p>int rDiff = bmp.image.getRgbPixel(x,y).r - rReduced;</p>
+<p>int gDiff = bmp.image.getRgbPixel(x,y).g - gReduced;</p>
+<p>int bDiff = bmp.image.getRgbPixel(x,y).b - bReduced;</p>
+<p>PixelColor color = new PixelColor(rDiff + 128,gDiff + 128,bDiff + 128);</p>
+<p>bmp.image.setRgbPixel(x,y,color);</p>
+<p>}}</p>
+<br>
+<p>Difernezbild Nature 4 bit</p>
+<img src="./pics/Nature_UG5_differenz4.bmp" alt="dach_grau" width="960" height="500">
+<br>
+<p>Difernezbild Manmade 4 bit</p>
+<img src="./pics/Manmade_UG5_differenz4.bmp" alt="dach_grau" width="960" height="500">
 </body>
 </html>

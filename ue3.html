@@ -19,22 +19,88 @@
 </iframe>
 
 <h2>Uebung 3</h2>
-<br><h3>Aufgabe 1 - 1.1</h3>
-<video controls width="650" height="550">
-    <!--source src="./video/greenscreen.webm" type="video/mp4" /-->
-    <source src="./video/wildlife.webm" type="video/webm" />
-</video>
-<p>Bescheibung</p>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 1 - 1.2</h3>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 2 - 2.1</h3>
-<p>Loesung</p>
-
-<br><h3>Aufgabe 2 - 2.2</h3>
-<p>Loesung</p>
+<br><h3>Aufgabe 1 Einfache Schwingungsformen:</h3>
+<p>Dreieck</p>
+<p><audio controls><source src="./audio/Triangle_High.wav" type="audio/wav"></audio></p>
+<img src="./pics/Triangle_Line.jpg" alt="triangle">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-9</td><td>38</td></tr>
+<tr><td>2</td><td>-47</td><td>118</td></tr>
+<tr><td>3</td><td>-75</td><td>199</td></tr>
+</table>
+<br>
+<p>Sägezahn</p>
+</p><audio controls><source src="./audio/Saw_High.wav" type="audio/wav"></audio><p>
+<img src="./pics/Saw_Line.jpg" alt="Saw">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-20</td><td>32</td></tr>
+<tr><td>2</td><td>-54</td><td>113</td></tr>
+<tr><td>3</td><td>-77</td><td>194</td></tr>
+</table>
+<br>
+<p>Quadrat</p>
+<p><audio controls><source src="./audio/Square_High.wav" type="audio/wav"></audio></p>
+<img src="./pics/Square_Line.jpg" alt="Square">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-16</td><td>32</td></tr>
+<tr><td>2</td><td>-42</td><td>118</td></tr>
+<tr><td>3</td><td>-59</td><td>194</td></tr>
+</table>
+<br>
+<p>Quadrat 10-90</p>
+<p><audio controls><source src="./audio/Square_High_10-90.wav" type="audio/wav"></audio></p>
+<img src="./pics/Square_Line_10-90.jpg" alt="Square10-90">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-16</td><td>43</td></tr>
+<tr><td>2</td><td>-46</td><td>118</td></tr>
+<tr><td>3</td><td>-84</td><td>307</td></tr>
+</table>
+<br>
+<p>Quadrat 30-70</p>
+<p><audio controls><source src="./audio/Square_High_30-70.wav" type="audio/wav"></audio></p>
+<img src="./pics/Square_Line_30-70.jpg" alt="Square30-70">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-8</td><td>38</td></tr>
+<tr><td>2</td><td>-48</td><td>118</td></tr>
+<tr><td>3</td><td>-84</td><td>310</td></tr>
+</table>
+<br>
+<p>Quadrat 50-50</p>
+<p><audio controls><source src="./audio/Square_High_50-50.wav" type="audio/wav"></audio></p>
+<img src="./pics/Square_Line_50-50.jpg" alt="Square50-50">
+<table>
+<tr><td>Obertöne</td><td>Ampl. Db</td><td>Hz</td></tr>
+<tr><td>1</td><td>-16</td><td>32</td></tr>
+<tr><td>2</td><td>-42</td><td>118</td></tr>
+<tr><td>3</td><td>-59</td><td>194</td></tr>
+</table>
+<br>
+<p>Setup VCV Rack:</p>
+<img src="./pics/Vc_Rack_Synthesizer.png" alt="VCV" width="650" height="400">
+<br>
+<br>
+<br><h3>Aufgabe 2 Schwebung:</h3>
+<p>Disonanzfall</p>
+<p><audio controls><source src="./audio/Disonanzfall.wav" type="audio/wav"></audio></p>
+<img src="./pics/Disonanzfall.jpg" alt="Disonanzfall">
+<br>
+<p>Amplitudenmodulation_Line</p>
+<p><audio controls><source src="./audio/Amplitudenmodulation.wav" type="audio/wav"></audio></p>
+<img src="./pics/Amplitudenmodulation_Line.jpg" alt="Amplitudenmodulation_Line">
+<br>
+<br><h3>Aufgabe 3 Klangnachbildung:</h3>
+<p>Wir haben versucht den Klang eines Metronoms nachzubilden.</p>
+<p>1. VCO   Frequenz: 400H   p width: 50   Fine: 50 cent</p>
+<p>2. VCO   Frequenz: 370 Hz   p width: 52   Fine: 100 cent</p>
+<p>ADSR   att: 1ms   dec: 1ms   sustain: 0%   rel: 1m</p>
+<p>VCF   Frequenz: 710,64    Resonanz: 56,145%   Drive: 197,35%</p>
+<p><audio controls><source src="./audio/Metronom_Sound.wav" type="audio/wav"></audio></p>
+<img src="./pics/Vc_Rack_Synthesizer.png" alt="VCV" width="650" height="400">
 
 
 </body>

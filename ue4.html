@@ -1,0 +1,223 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="format.css">
+<style type="text/css">
+        <!--
+                 a:link {font-family:Arial;        font-size:10pt;        text-decoration:none;}
+                a:visited {font-family:Arial; font-size:10pt; text-decoration:none;}
+                a:hover {color:#FF3333; text-decoration:none; font-weight:normal; font-size:10pt;}
+        //-->
+</style>
+</head>
+
+<body>
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+         <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+         folgenden.</p>
+</iframe>
+
+<h2>Uebung 4</h2>
+<br><h3>Aufgabe 1: RGB und YCbCr</h3>
+<p>a: Helligkeitsinformationen werden vom menschlichen Sehsystem empfindlicher wahrgenommen als Farbinformationen. Daher ist es günstig, sie getrennt zu verarbeiten, um eine effizientere Bildverarbeitung zu ermöglichen.</p>
+<p>b: Erstelle aus deinen eigenen Bildern Versionen, die nur jeweils den Rot-, Grün- und Blauanteil zeigen.</p>
+<img src="./pics/Manmade_Ug5_blue.bmp" alt="manmade blue">
+<img src="./pics/Nature_Ug5_blue.bmp" alt="Nature blue">
+<img src="./pics/Manmade_Ug5_green.bmp" alt="manmade green">
+<img src="./pics/Nature_Ug5_green.bmp" alt="Nature green">
+<img src="./pics/Manmade_Ug5_red.bmp" alt="manmade red">
+<img src="./pics/Nature_Ug5_red.bmp" alt="Nature red">
+<p>Code:</p>
+<p>for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {	</p>
+<p>			int rReduced = bmp.image.getRgbPixel(x,y).r * 0;</p>
+<p>			int gReduced = bmp.image.getRgbPixel(x,y).g * 0;</p>
+<p>			int bReduced = bmp.image.getRgbPixel(x,y).b    ;</p>
+<p>			PixelColor pixel = new PixelColor(rReduced ,gReduced ,bReduced );</p>
+<p>			bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>		}</p>
+<p>}</p>
+<br>
+<p>c: umwandlung zu YCbCr bild</p>
+<p>Y:</p>
+<img src="./pics/Manmade_Ug5_Y.bmp" alt="manmade Y">
+<img src="./pics/Nature_Ug5_Y.bmp" alt="Nature Y">
+<p>Cb:</p>
+<img src="./pics/Manmade_Ug5_Cb.bmp" alt="manmade Cb">
+<img src="./pics/Nature_Ug5_Cb.bmp" alt="Nature Cb">
+<p>Cr:</p>
+<img src="./pics/Manmade_Ug5_Cr.bmp" alt="manmade Cr">
+<img src="./pics/Nature_Ug5_Cr.bmp" alt="Nature Cr">
+<p>Code:</p>
+<p>	for(int y = 0; y &#060 bmp.image.getHeight(); y++) {
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {
+<p>				double Y = 0.299 * bmp.image.getRgbPixel(x,y).r + 0.587 * bmp.image.getRgbPixel(x,y).g + 0.114 * bmp.image.getRgbPixel(x,y).b;</p><br>
+<p>				double Cbr = 128 + (bmp.image.getRgbPixel(x,y).r * -0.169);</p>
+<p>				double Cbg = 128 + (bmp.image.getRgbPixel(x,y).g * -0.331);</p>
+<p>				double Cbb = 128 + (bmp.image.getRgbPixel(x,y).b * +0.5);</p><br>
+<p>				double Crr = 128 + (bmp.image.getRgbPixel(x,y).r * +0.5);</p>
+<p>				double Crg = 128 + (bmp.image.getRgbPixel(x,y).g * -0.419);</p>
+<p>				double Crb = 128 + (bmp.image.getRgbPixel(x,y).b * -0.081);</p><br>
+<p>				PixelColor pixel = new PixelColor(Cbr ,Cbg ,Cbb );</p>
+<p>				bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>		}</p>
+<p>	}</p>
+<p>(wir haben hierfür die klasse PixelColor von int zu double geändert, und dann für das jeweilige bild die nur Y, die cb werte oder die cr werte benutz)</p>
+<br>
+<p>d: Zurückwandlung</p>
+<p>für diese aufgabe haben wir jeweils ein YcbCr bild(also ein bild das eine kombination aus Y, Cb und Cr war) wieder zurück zu Rgb verwandelt</p>
+<p>Code:</p>
+<p>for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>				double R = bmp.image.getRgbPixel(x,y).r + 1.403 * bmp.image.getRgbPixel(x,y).b;</p>
+<p>				double G = bmp.image.getRgbPixel(x,y).r - 0.714 * bmp.image.getRgbPixel(x,y).b - 0.344 * bmp.image.getRgbPixel(x,y).g;</p>
+<p>				double B = bmp.image.getRgbPixel(x,y).r + 1.773 * bmp.image.getRgbPixel(x,y).g;</p>
+<p>				PixelColor pixel = new PixelColor(R ,G ,B );</p>
+<p>				bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>		}</p>
+<p>	}</p>
+<p>die bilder sehen genau so aus wie vorher</p>
+<br><h3>Aufgabe 2 Histogramm:</h3>
+<p>Histogramme:</p>
+<img src="./pics/Histogram_Manmade.png" alt="Histogram Manmade">
+<img src="./pics/Histogram_Nature.png" alt="Histogram Nature">
+<p>Code :</p>
+<p>	FileOutputStream foshis = new FileOutputStream("Histogram_Nature_Y.txt");</p>
+<p>	OutputStreamWriter oswhis = new OutputStreamWriter(foshis, "US-ascii");</p>
+<p>	BufferedWriter bwhis = new BufferedWriter(oswhis);</p>
+<p>	int[] histogram = new int[256];</p>
+<p>	for(int i = 0; i &#060 256; i++){</p>
+<p>		histogram[i] = 0;</p>
+<p>	}</p>
+<p>	for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			Double yR = (bmp.image.getRgbPixel(x,y).r * 0.299) + 0;</p>
+<p>			Double yG = (bmp.image.getRgbPixel(x,y).g * 0.587) + 0;</p>
+<p>			Double yB = (bmp.image.getRgbPixel(x,y).b * 0.114) + 0;</p>
+<p>			int lumYint = yR.intValue() + yG.intValue() + yB.intValue();</p>
+<p>			histogram[lumYint] = histogram[lumYint] + 1;</p>
+<p>		}</p>
+<p>	}</p>
+<p>	for(int i = 0; i &#060 histogram.length; i++){</p>
+<p>		bwhis.write(String.valueOf(histogram[i]));</p>
+<p>		bwhis.newLine();</p>
+<p>	}</p>
+<p>	bwhis.close();</p>
+<p> oswhis.close();</p>
+<p>	foshis.close();</p>
+<br><h3>Aufgabe 3 Helligkeit und Kontrast :</h3>
+<p>a:</p>
+<p>Code mittlere Helligkeit:</p>
+<p>int Helligkeitswertesum  = 0;</p>
+<p>	int Bildpunkte = bmp.image.getHeight() * bmp.image.getWidth();</p>
+<p>		for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>			for(int x = 0;x &#060 bmp.image.getWidth(); x++) {</p>
+<p>				Helligkeitswertesum += bmp.image.getRgbPixel(x,y).r; //kann r, g oder b sein, macht keinen unterschied</p>
+<p>			}</p>
+<p>		}</p>
+<p>		int mittlereHelligkeit = Helligkeitswertesum/Bildpunkte;</p>
+<p>		System.out.println(mittlereHelligkeit);</p>
+<br>
+<p>die entstehenden Werte(also die Mittlere Helligkeit des Bildes) sind wie folgt: Nature hat 89 und manmade hat  153
+<br><br>
+<p>Code Standardabweichung:</p>
+<p> Double faktor1 = (1/(Double.valueOf(bmp.image.getWidth()) * Double.valueOf(bmp.image.getHeight())));
+<p>	Double faktor2 = 0.0;
+<p>	for(int y = 0; y &#060 bmp.image.getHeight(); y++) {
+<p>		for(int x = 0;x &#060 bmp.image.getWidth(); x++) {
+<p>			double yintensityMinusAverage = bmp.image.getRgbPixel(x,y).r - 153; 
+<p>			faktor2 += (yintensityMinusAverage * yintensityMinusAverage);
+<p>		}
+<p>	}
+<p>	Double abweichung = faktor1 * faktor2;
+<p>	Double Standardabweichung = Math.sqrt(abweichung);
+<p>	System.out.println(Standardabweichung);
+<br><br>
+<p>die entstehenden Werte für den Kontrast sind wie folgt: Nature hat 59.85706561800493 und manmade hat 21.29530940245519
+<br><br>
+<p>b: </p>
+<p> Dunkelste Bilder für Manmade und Nature (-80)<p>
+<img src="./pics/Manmade_Ug5_Y_dunkelstes.bmp" alt="manmade Y">
+<img src="./pics/Nature_Ug5_Y_dunkelstes.bmp" alt="Nature Y">
+<p>dazugehörige Histogramme<p>
+<img src="./pics/Histogram_Manmade_dunkel.png" alt="Histogram Manmade">
+<img src="./pics/Histogram_Nature_dunkel.png" alt="Histogram Nature">
+<p> Hellste Bilder für Manmade und Nature (+80)<p>
+<img src="./pics/Manmade_Ug5_Y_hellstes.bmp" alt="manmade Y">
+<img src="./pics/Nature_Ug5_Y_hellstes.bmp" alt="Nature Y">
+<p>dazugehörige Histogramme<p>
+<img src="./pics/Histogram_Manmade_hellste.png" alt="Histogram Manmade">
+<img src="./pics/Histogram_Nature_hellste.png" alt="Histogram Nature">
+<br><br>
+<p>Code dunkler/heller:</p>
+<p>int h = -80; </p>
+<p>		for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>			for(int x = 0;x &#060 bmp.image.getWidth(); x++) {</p>
+<p>				double rNew = bmp.image.getRgbPixel(x,y).r + h;</p>
+<p>				double gNew = bmp.image.getRgbPixel(x,y).g + h;</p>
+<p>				double bNew = bmp.image.getRgbPixel(x,y).b + h;</p>
+<p>				if((rNew &#060= 0 )){ </p>
+<p>					rNew = 0;</p>
+<p>					gNew = 0;</p>
+<p>					bNew = 0;</p>
+<p>				}</p>
+<p>				if((rNew >= 255 )){ </p>
+<p>					rNew = 255;</p>
+<p>					gNew = 255;</p>
+<p>					bNew = 255;</p>
+<p>				}</p>
+<p>				PixelColor pixel = new PixelColor(rNew,gNew,bNew);</p>
+<p>				bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>			}</p>
+<p>		}</p>
+<p>	jeweils für h = -80 und 80,, um auf die hellsten und dunkelsten bilder zu kommen</p>
+
+<br><br>
+<p>c: </p>
+
+<p> kontrastreichste Bilder für Manmade und Nature (10.0)<p>
+<img src="./pics/Manmade_Ug5_Y_konrastreich.bmp" alt="manmade kontrastreich">
+<img src="./pics/Nature_Ug5_Y_konrastreich.bmp" alt="Nature kontrastreich">
+<p>dazugehörige Histogramme<p>
+<img src="./pics/Histogram_Manmade_kontrastreich.png" alt="Histogram Manmade kontrastreich">
+<img src="./pics/Histogram_Nature_kontrastreich.png" alt="Histogram Nature kontrastreich">
+<p> kontrastärmste bilder für Manmade und Nature (0.2)<p>
+<img src="./pics/Manmade_Ug5_Y_konrastarm.bmp" alt="manmade konrastarm">
+<img src="./pics/Nature_Ug5_Y_konrastarm.bmp" alt="Nature konrastarm ">
+<p>dazugehörige Histogramme<p>
+<img src="./pics/Histogram_Manmade_kontrastarm.png" alt="Histogram Manmade konrastarm">
+<img src="./pics/Histogram_Nature_kontrastarm.png" alt="Histogram Nature konrastarm">
+<br><br>
+<p> wenn k &#0600 ist, dann werden alle farben auf einen negativwert und somit in unserem code auf 0 gesetz, also ist das Bild komplett schwarz</p>
+<br><br>
+<p>Unterschied zwischen dem Histogramm der Helligkeitsveränderung und dem Histogramm der Kontraständerung:</p>
+<p>die helligkeitsveränderung "verschiebt" das histogram nach links/rechst, während die kontraständerung die verteilung der Helligkeitswerte auch beinflusst</p>
+
+<br><br>
+<p>Code kontraständerung:</p>
+<p>	Double k = 0.2; </p>
+<p>			for(int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>				for(int x = 0;x &#060 bmp.image.getWidth(); x++) {</p>
+<p>					Double rNew = bmp.image.getRgbPixel(x,y).r * k;</p>
+<p>					Double gNew = bmp.image.getRgbPixel(x,y).g * k;</p>
+<p>					Double bNew = bmp.image.getRgbPixel(x,y).b * k;</p>
+<p>				if((rNew &#060= 0 )){</p>
+<p>					rNew = 0.0;</p>
+<p>					gNew = 0.0;</p>
+<p>					bNew = 0.0;</p>
+<p>				}</p>
+<p>				if((rNew >= 255 )){</p>
+<p>					rNew = 255.0;</p>
+<p>					gNew = 255.0;</p>
+<p>					bNew = 255.0;</p>
+<p>				}</p>
+<p>				PixelColor pixel = new PixelColor(rNew.intValue(),gNew.intValue(),bNew.intValue());</p>
+<p>				bmp.image.setRgbPixel(x,y,pixel);</p>
+<p>			}</p>
+<p>		}</p>
+<p>	</p>
+
+
+</body>
+</html>

@@ -1,0 +1,149 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="format.css">
+<style type="text/css">
+        <!--
+                 a:link {font-family:Arial;        font-size:10pt;        text-decoration:none;}
+                a:visited {font-family:Arial; font-size:10pt; text-decoration:none;}
+                a:hover {color:#FF3333; text-decoration:none; font-weight:normal; font-size:10pt;}
+        //-->
+</style>
+</head>
+
+<body>
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+         <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+         folgenden.</p>
+</iframe>
+
+<h2>Uebung 5</h2>
+<br><h3>1. Aufgabe: Klirrfaktor </h3>
+<p>a:</p>
+<p>Berechnung der Verstärkungsfaktoren</p>
+<p>3db = 10^(3/20) = 1.41</p>
+<p>6db = 10^(6/20) = 1.995</p>
+<p>9db = 10^(9/20) = 2.81</p>
+<p>9db = 10^(12/20) = 3,981</p>
+<p>original</p>
+<p><audio controls><source src="./audio/Musik_UG5.wav" type="audio/wav"></audio></p>
+<p> Ergebnisse </p>
+<p>3db</p>
+<p><audio controls><source src="./audio/Musik_UG5_3db.wav" type="audio/wav"></audio></p>
+<p>6db</p>
+<p><audio controls><source src="./audio/Musik_UG5_6db.wav" type="audio/wav"></audio></p>
+<p>9db</p>
+<p><audio controls><source src="./audio/Musik_UG5_9db.wav" type="audio/wav"></audio></p>
+<p>12db</p>
+<p><audio controls><source src="./audio/Musik_UG5_12db.wav" type="audio/wav"></audio></p>
+<br>
+<p>Spektrogramme in der selben Reihenfolge</p>
+<p><img src="./pics/spek_mus_3db.jpg" alt="3db"></p>
+<p><img src="./pics/spek_mus_6db.jpg" alt="6db"></p>
+<p><img src="./pics/spek_mus_9db.jpg" alt="9db"></p>
+<p><img src="./pics/spek_mus_12db.jpg" alt="12db"></p>
+<br>
+<p>Code:</p>
+<p>double F = 3.981;  </p>
+<p>			for (int i=0; i &#060 samples;i++) {</p>
+<p>				double valuedouble = Double.valueOf(readWavFile.sound[i]);</p>
+<p>				double valuedoubleF = valuedouble * F;</p>
+<p>				if(valuedoubleF > (Math.pow(2,16)/2 - 1) ){</p>
+<p>					valuedoubleF = (Math.pow(2,16)/2 - 1);</p>
+<p>				}</p>
+<p>				if(valuedoubleF &#060 -(Math.pow(2,16)/2)){</p>
+<p>					valuedoubleF =-(Math.pow(2,16)/2);</p>
+<p>				}</p>
+<p>						readWavFile.sound[i] = (short) valuedoubleF;</p>
+<p>			}</p>
+<br>
+<p>b:</p>
+<p>bei einer Verstärkung von 9db wird die Verzerrung wahrnehmbar</p>
+<br>
+<p>c:</p>
+<p>original</p>
+<p><audio controls><source src="./audio/sine_1k_05.wav" type="audio/wav"></audio></p>
+<p>Ergebnisse </p>
+<p>6db</p>
+<p><audio controls><source src="./audio/sine_1k_05_6db.wav" type="audio/wav"></audio></p>
+<p>9db</p>
+<p><audio controls><source src="./audio/sine_1k_05_9db.wav" type="audio/wav"></audio></p>
+<p>12db</p>
+<p><audio controls><source src="./audio/sine_1k_05_12db.wav" type="audio/wav"></audio></p>
+<p>Spektrogramme in der selben reihenfolge</p>
+<img src="./pics/gram_spek_sin_6db.jpg" alt="6db">
+<img src="./pics/gram_spek_sin_9db.jpg" alt="9db">
+<img src="./pics/gram_spek_sin_12db.jpg" alt="12db">
+<br>
+<img src="./pics/Spektogram.png" alt="12db">
+
+<p>Klirrfaktor k = âˆš ( (69.6db)^2 + (65.9db)^2 ) / ( ( 88.9db)^2 + (69.6db)^2 + ( 65.9db)^2) = 0.54</p>
+<br>
+<br><h3>2. Aufgabe: Echo </h3>
+<p>a:</p>
+<p>um eine Verzögerung von 10 ms zu erreichen müssen wir um 0.01 mal die samplerate(in unserem Fall 44100), also 441 </p>
+<p>für 100 ms sind das dann 4410 und für 200ms um  8820</p>
+<br>
+<p>Code:</p>
+<p>		double delay = 0.01;</p>
+<p>		int N = (int)(delay * sampleRate);</p>
+<p>		for(int i = 0; i &#060 samples; i++) { </p>
+<p>			if( i-N >0){
+<p>				readWavFile.sound[i] = (short)(readWavFile.sound[i] + 0.6 * readWavFile.sound[i-N]);</p>
+<p>			}</p>
+<p>		}</p>
+<br>
+<p>b:</p>
+<p>Musik </p>
+<p>original</p>
+<p><audio controls><source src="./audio/Musik_UG5.wav" type="audio/wav"></audio></p>
+<p>10 ms</p>
+<p><audio controls><source src="./audio/Musik_UG5_10ms.wav" type="audio/wav"></audio></p>
+<p>100ms</p>
+<p><audio controls><source src="./audio/Musik_UG5_100ms.wav" type="audio/wav"></audio></p>
+<p>200 ms</p>
+<p><audio controls><source src="./audio/Musik_UG5_200ms.wav" type="audio/wav"></audio></p>
+<br>
+<p>Sprache </p>
+<p>original</p>
+<p><audio controls><source src="./audio/sprache_05praat.wav" type="audio/wav"></audio></p>
+<p>10 ms</p>
+<p><audio controls><source src="./audio/Sprache_UG5_10ms.wav" type="audio/wav"></audio></p>
+<p>100 ms</p>
+<p><audio controls><source src="./audio/Sprache_UG5_100ms.wav" type="audio/wav"></audio></p>
+<p>200 ms</p>
+<p><audio controls><source src="./audio/Sprache_UG5_200ms.wav" type="audio/wav"></audio></p>
+<br>
+<br><h3>3. Aufgabe: Einfacher Filter</h3>
+<p>a: </p>
+<p>code</p>
+<p>for(int i = 1; i &#060 samples; i++){</p>
+<p>		readWavFile.sound[i] = (short) ((0.5 * readWavFile.sound[i]) + (0.45 * readWavFile.sound[i-1]));</p>
+<p>}</p>
+<br>
+<p>Musik</p>
+<p>original</p>
+<p><audio controls><source src="./audio/Musik_UG5.wav" type="audio/wav"></audio></p>
+<p>Musik y(k) = 0.5 * x(k) - 0.45 * x(k-1)</p>
+<p><audio controls><source src="./audio/Musik_UG5_ykminus.wav" type="audio/wav"></audio></p>
+<p>Musik y(k) = 0.5 * x(k) + 0.45 * x(k-1)</p>
+<p><audio controls><source src="./audio/Musik_UG5_ykplus.wav" type="audio/wav"></audio></p>
+<br>
+<p>b:</p>
+<p>Noise y(k) = 0.5 * x(k) - 0.45 * x(k-1)</p>
+<p><audio controls><source src="./audio/Noise_05_ykminus.wav" type="audio/wav"></audio></p>
+<p>Noise y(k) = 0.5 * x(k) + 0.45 * x(k-1)</p>
+<p><audio controls><source src="./audio/Noise_05_ykplus.wav" type="audio/wav"></audio></p>	
+<p>Spektrogramme </p>
+<p>ohne filter</p>
+<img src="./pics/noise_spek.jpg" alt="noise spek">
+<p>y(k) = 0.5 * x(k) - 0.45 * x(k-1)</p>
+<img src="./pics/spek_y_plus.jpg" alt="spek y plus">
+<p>y(k) = 0.5 * x(k) + 0.45 * x(k-1)</p>
+<img src="./pics/spek_y_minus.jpg" alt="spek y minus">
+<p>ersteres ist ein tiefpass filter und letzteres ist ein hochpass filter</p>
+
+
+</body>
+</html>

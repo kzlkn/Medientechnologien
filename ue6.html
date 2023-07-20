@@ -1,0 +1,297 @@
+<html>
+<head>
+<title></title>
+<link rel="stylesheet" type="text/css" href="format.css">
+<style type="text/css">
+        <!--
+                 a:link {font-family:Arial;        font-size:10pt;        text-decoration:none;}
+                a:visited {font-family:Arial; font-size:10pt; text-decoration:none;}
+                a:hover {color:#FF3333; text-decoration:none; font-weight:normal; font-size:10pt;}
+        //-->
+</style>
+</head>
+
+<body>
+
+<iframe src="oben.html" width="800" height="120" name="IFrame3" id="IFrame3" scrolling="no" frameborder="0">
+         <p>Ihr Browser kann leider keine eingebe5tteten Frames anzeigen:Sie k&ouml;nnen die eingebettete Seite &uuml;ber den
+         folgenden.</p>
+</iframe>
+
+<h2>Uebung 6: Bildfilter</h2>
+<br><h3>1. Aufgabe:  Mittelwertfilter (Tiefpass)  </h3>
+<p>a:</p>
+<p>Die Bilder erscheinen aufgrund ihrer Unschärfe und des verminderten Kontrasts verschwommen und verlieren dadurch an visueller Schärfe und Ausdruckskraft.</p>
+<br><p>Manmade original</p>
+<img src="./pics/Manmade_Ug5grau.bmp" alt="noise spek">
+<p>nach filter</p>
+<img src="./pics/Manmade_UG5_mittel.bmp" alt="noise spek">
+<br><p>Nature original</p>
+<img src="./pics/Nature_Ug5grau.bmp" alt="noise spek">
+<p>nach filter</p>
+<img src="./pics/Nature_UG5_mittel.bmp" alt="noise spek">
+<br><p>Code:</p>
+<p>PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];	 </p>
+<p>		// filter </p>
+<p>		for(int y = 1; y &#060 bmp.image.getHeight()-1; y++) { </p>
+<p>		for(int x = 1;x &#060 bmp.image.getWidth()-1; x++) { </p>
+<p>			int middle = 0; </p> 
+<p>			int divider = 0; </p>
+<p>			for (int i = -1; i &#060 2; i++) { </p>
+<p>				for (int j = -1; j &#060 2; j++) { </p>
+<p>					if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) { </p>
+<p>						int kernelX = x + i; </p>
+<p>						int kernelY = y + j; </p>
+<p>						middle += bmp.image.getRgbPixel(kernelX, kernelY).r; </p>
+<p>						divider++; </p>
+<p>					} </p>
+<p>					middle += 0; </p>
+<p>				} </p>
+<p>			} </p>
+<p>			middle /= divider; </p>
+<p>			PixelColor middleColor = new PixelColor(middle, middle, middle); </p>
+<p>			newPicture[x][y] = middleColor; </p>
+<p>			bmp.image.setRgbPixel(x,y,newPicture[x][y]); </p>
+<p>		} </p>
+<p>	} </p>
+<br>
+<p>b:</p>
+<p>Wir haben bei außerhalb des Bildbereichs liegenden Pixelkoordinaten jeweils eine Addition von 0 durchgeführt und beim Teilerwert 1 abgezogen. Dadurch werden die Randpixel lediglich aus 4-6 benachbarten Pixeln gemittelt.</p>
+<br>
+<p>c:</p>
+<p>Nature</p>
+<img src="./pics/Nature_UG5_mittel_diff.bmp" alt="noise spek">
+<p>manmade</p>
+<img src="./pics/Manmade_UG5_mittel_diff.bmp" alt="noise spek">
+<br><p>Code:</p>
+<p>PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];	</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			for (int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>				int middle = 0;</p>
+<p>				int divider = 0;</p>
+<p>				for (int i = -1; i &#060 2; i++) {</p>
+<p>					for (int j = -1; j &#060 2; j++) {</p>
+<p>						if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) {</p>
+<p>							int kernelX = x + i;</p>
+<p>							int kernelY = y + j;</p>
+<p>							middle += bmp.image.getRgbPixel(kernelX, kernelY).r;</p>
+<p>							divider++;</p>
+<p>						}</p>
+<p>						middle += 0;</p>
+<p>					}</p>
+<p>				}</p>
+<p>				middle /= divider;</p>
+<p>				newPicture[x][y] = new PixelColor(bmp.image.getRgbPixel(x,y).r - middle,bmp.image.getRgbPixel(x,y).g -  middle,bmp.image.getRgbPixel(x,y).b - middle);</p>
+<p>			}</p>
+<p>		}</p>
+<p>		for(int x = 0; x &#060 bmp.image.getWidth(); x++){</p>
+<p>			for(int y = 0; y &#060 bmp.image.getHeight(); y++){</p>
+<p>			bmp.image.setRgbPixel(x,y,newPicture[x][y]);</p>
+<p>			}	</p>
+<p>		}</p>
+<br><h3>2. Aufgabe: Gradientenfilter</h3>
+<p>a:</p>
+<br><p>Manmade original</p>
+<img src="./pics/Manmade_Ug5grau.bmp" alt="noise spek">
+<p>nach filter</p>
+<img src="./pics/Manmade_UG5_gradient.bmp" alt="noise spek">
+<br><p>Nature original</p>
+<img src="./pics/Nature_Ug5grau.bmp" alt="noise spek">
+<p>nach filter</p>
+<img src="./pics/Nature_UG5_gradient.bmp" alt="noise spek">
+<br><p>Code:</p>
+<p>PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];</p>
+<p>	for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			for (int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>				int middle = 0;</p>
+<p>				for (int i = -1; i &#060 2; i++) {</p>
+<p>					for (int j = -1; j &#060 2; j++) {</p>
+<p>						if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) {</p>
+<p>							int kernelX = x + i;</p>
+<p>							int kernelY = y + j;</p>
+<p>							if (i == -1 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 0);</p>
+<p>							}</p>
+<p>							if (i == 1 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 0);</p>
+<p>							}</p>
+<p>							if (i == 0 && j == 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 12);</p>
+<p>							}</p>
+<p>							if (i == 0 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * -2);</p>
+<p>							}</p>
+<p>							if (j == 0 && i != 1) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * -2);</p>
+<p>							}</p>
+<p>						}</p>
+<p>						middle += 0;</p>
+<p>					}</p>
+<p>				}</p>
+<p>				middle /= 4;</p>
+<p>				if (middle > 255) {</p>
+<p>					middle = 255;</p>
+<p>				}</p>
+<p>				if (middle &#060 0) {</p>
+<p>					middle = 0;</p>
+<p>				}</p>
+<p>				PixelColor middleColor = new PixelColor(middle, middle, middle);</p>
+<p>				newPicture[x][y] = middleColor;</p>
+<p>			}</p>
+<p>		}		</p>
+<p>	for(int x = 0; x &#060 bmp.image.getWidth(); x++){</p>
+<p>		for(int y = 0; y &#060 bmp.image.getHeight(); y++){</p>
+<p>		bmp.image.setRgbPixel(x,y,newPicture[x][y]);</p>
+<p>		}	</p>
+<p>	}</p>
+<br>
+<p>b:</p>
+<p>Nature</p>
+<img src="./pics/Nature_UG5_gradient_diff.bmp" alt="noise spek">
+<p>manmade</p>
+<img src="./pics/Manmade_UG5_gradient_diff.bmp" alt="noise spek">
+<br><p>Code:</p>
+<p>		PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			for (int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>				int middle = 0;</p>
+<p>				for (int i = -1; i &#060 2; i++) {</p>
+<p>					for (int j = -1; j &#060 2; j++) {</p>
+<p>						if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) {</p>
+<p>							int kernelX = x + i;</p>
+<p>							int kernelY = y + j;</p>
+<p>							if (i == -1 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 0);</p>
+<p>							}</p>
+<p>							if (i == 1 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 0);</p>
+<p>							}</p>
+<p>							if (i == 0 && j == 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * 12);</p>
+<p>							}</p>
+<p>							if (i == 0 && j != 0) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * -2);</p>
+<p>							}</p>
+<p>							if (j == 0 && i != 1) {</p>
+<p>								middle += (bmp.image.getRgbPixel(kernelX, kernelY).r * -2);</p>
+<p>							}</p>
+<p>						}</p>
+<p>						middle += 0;</p>
+<p>					}</p>
+<p>				}</p>
+<p>				middle /= 4;</p>
+<p>				if (middle > 255) {</p>
+<p>					middle = 255;</p>
+<p>				}</p>
+<p>				if (middle &#060 0) {</p>
+<p>					middle = 0;</p>
+<p>				}</p>
+<p>				newPicture[x][y]  = new PixelColor( bmp.image.getRgbPixel(x,y).r - middle , bmp.image.getRgbPixel(x,y).r - middle , bmp.image.getRgbPixel(x,y).r - middle );</p>
+<p>			}</p>
+<p>		}</p>
+<p>	for(int x = 0; x &#060 bmp.image.getWidth(); x++){</p>
+<p>		for(int y = 0; y &#060 bmp.image.getHeight(); y++){</p>
+<p>		bmp.image.setRgbPixel(x,y,newPicture[x][y]);</p>
+<p>		}	</p>
+<p>	}</p>
+<br><h3>3. Aufgabe: Medianfilter</h3>
+<br><p>Nature fehler</p>
+<img src="./pics/Nature_Ug5grau_fehler.bmp" alt="noise spek">
+<p>nach medianfilter</p>
+<img src="./pics/Nature_UG5_median.bmp" alt="noise spek">
+<br><p>Manmade fehler</p>
+<img src="./pics/Manmade_Ug5grau_fehler.bmp" alt="noise spek">
+<p>nach medianfilter</p>
+<img src="./pics/Manmade_UG5_median.bmp" alt="noise spek">
+<br><p>Code:</p>
+<p>		PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];</p>
+<p>        List medianList;	</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			for (int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>                medianList = new ArrayList();</p>
+<p>				for (int i = -1; i &#060 2; i++) {</p>
+<p>					for (int j = -1; j &#060 2; j++) {</p>
+<p>						if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) {</p>
+<p>							int kernelX = x + i;</p>
+<p>							int kernelY = y + j;</p>
+<p>                            medianList.add(bmp.image.getRgbPixel(kernelX,kernelY).r);</p>
+<p>						} else {</p>
+<p>                            medianList.add(0);</p>
+<p>                        }</p>
+<p>					}</p>
+<p>				}</p>
+<p>				Collections.sort(medianList);</p>
+<p>               int middle = (int) medianList.get(4);</p>
+<p>				if (middle > 255) {</p>
+<p>					middle = 255;</p>
+<p>				}</p>
+<p>				if (middle &#060 0) {</p>
+<p>					middle = 0;</p>
+<p>				}</p>
+<p>				PixelColor middleColor = new PixelColor(middle, middle, middle);</p>
+<p>				newPicture[x][y] = middleColor;</p>
+<p>			}</p>
+<p>		}		</p>
+<p>		for(int x = 0; x &#060 bmp.image.getWidth(); x++){</p>
+<p>			for(int y = 0; y &#060 bmp.image.getHeight(); y++){</p>
+<p>				bmp.image.setRgbPixel(x,y,newPicture[x][y]);</p>
+<p>			}</p>
+<p>		}</p>
+
+<br><h3>4. Aufgabe: Sobel-Filter</h3>
+
+<br><p>Nature original</p>
+<img src="./pics/Nature_Ug5grau.bmp" alt="noise spek">
+<p>sobel horizontal</p>
+<img src="./pics/Nature_UG5_sobel_horizontal.bmp" alt="noise spek">
+<p>sobel vertikal</p>
+<img src="./pics/Nature_UG5_sobel_vertikal.bmp" alt="noise spek">
+<br><p>Manmade original</p>
+<img src="./pics/Manmade_Ug5grau.bmp" alt="noise spek">
+<p>sobel horizontal</p>
+<img src="./pics/Manmade_UG5_sobel_horizontal.bmp" alt="noise spek">
+<p>sobel vertikal</p>
+<img src="./pics/Manmade_UG5_sobel_vertikal.bmp" alt="noise spek">
+
+<br><p>Code:</p>
+<p>		PixelColor[][] newPicture = new PixelColor[bmp.image.getWidth()][bmp.image.getHeight()];</p>
+<p>		//filter</p>
+<p>		for (int x = 0; x &#060 bmp.image.getWidth(); x++) {</p>
+<p>			for (int y = 0; y &#060 bmp.image.getHeight(); y++) {</p>
+<p>				int middle = 0;</p>
+<p>				int[][] kernel = new int[3][3];</p>
+<p>				int[][] sobel = {{1, 2, 1}, {0, 0, 0}, {-1, -2, -1}};</p>
+<p>				for (int i = -1; i &#060 2; i++) {</p>
+<p>					for (int j = -1; j &#060 2; j++) {</p>
+<p>						if (!(x + i &#060 0) && !(y + j &#060 0) && !(x + i > bmp.image.getWidth() - 1) && !(y + j > bmp.image.getHeight() - 1)) {</p>
+<p>							int kernelX = x + i;</p>
+<p>							int kernelY = y + j;</p>
+<p>							kernel[i + 1][j + 1] = bmp.image.getRgbPixel(kernelX, kernelY).r;</p>
+<p>						}</p>
+<p>					}</p>
+<p>				}</p>
+<p>				for (int a = 0; a &#060 3; a++) {</p>
+<p>					for (int b = 0; b &#060 3; b++) {</p>
+<p>						middle += kernel[a][b] * sobel[a][b];</p>
+<p>					}</p>
+<p>				}</p>
+<p>				middle /= 8;</p>
+<p>				if (middle > 255) {</p>
+<p>					middle = 255;</p>
+<p>				}</p>
+<p>				if (middle &#060 0) {</p>
+<p>					middle = 0;</p>
+<p>				}</p>
+<p>				PixelColor middleColor = new PixelColor(middle, middle, middle);</p>
+<p>				newPicture[x][y] = middleColor;</p>
+<p>			}</p>
+<p>		}</p>
+<p>		for(int x = 0; x &#060 bmp.image.getWidth(); x++){</p>
+<p>			for(int y = 0; y &#060 bmp.image.getHeight(); y++){</p>
+<p>				bmp.image.setRgbPixel(x,y,newPicture[x][y]);</p>
+<p>			}</p>
+<p>		}</p>
+
+
+</body>
+</html>
